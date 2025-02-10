@@ -4,7 +4,7 @@ import { lazy, Suspense } from "react";
 const Login = lazy(() => import("./pages/public/Login"));
 const ErrorPage = lazy(() => import("./pages/public/ErrorPage"));
 const RequireAuth = lazy(() => import("./components/RequireAuth"));
-// const AdminProtected = lazy(() => import("./components/AdminProtected"));
+// const RoleProtected = lazy(() => import("./components/RoleProtected"));
 
 // public pages
 const Unauthorized = lazy(() => import("./pages/public/Unauthorized"));
@@ -15,7 +15,7 @@ const Dashboard = lazy(() =>
   import("./pages/private/admin/dashboard/Dashboard")
 );
 const Branches = lazy(() => import("./pages/private/admin/branches/Branches"));
-const Staff = lazy(() => import("./pages/private/admin/staff/Staff"));
+const Users = lazy(() => import("./pages/private/admin/users/Users"));
 const Stock = lazy(() => import("./pages/private/admin/stock/Stock"));
 
 // shared pages
@@ -75,10 +75,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "manage/staff",
+        path: "manage/users",
         element: (
           <Suspense fallback={<p>Loading Page</p>}>
-            <Staff />
+            <Users />
           </Suspense>
         ),
       },

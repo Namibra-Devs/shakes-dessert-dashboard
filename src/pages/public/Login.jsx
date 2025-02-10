@@ -21,7 +21,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
       const user = {
         _id: "e9e9e9e",
         email: "john@email.com",
