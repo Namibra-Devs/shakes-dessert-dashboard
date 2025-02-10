@@ -15,11 +15,21 @@ const Dashboard = lazy(() =>
   import("./pages/private/admin/dashboard/Dashboard")
 );
 const Branches = lazy(() => import("./pages/private/admin/branches/Branches"));
+const CreateBranch = lazy(() =>
+  import("./pages/private/admin/branches/CreateBranch")
+);
 const Users = lazy(() => import("./pages/private/admin/users/Users"));
+const CreateUser = lazy(() => import("./pages/private/admin/users/CreateUser"));
 const Stock = lazy(() => import("./pages/private/admin/stock/Stock"));
+const CreateStock = lazy(() =>
+  import("./pages/private/admin/stock/CreateStock")
+);
 
 // shared pages
 const Orders = lazy(() => import("./pages/private/shared/orders/Orders"));
+const CreateOrder = lazy(() =>
+  import("./pages/private/shared/orders/CreateOrder")
+);
 
 const router = createBrowserRouter([
   {
@@ -67,10 +77,26 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "orders/create",
+        element: (
+          <Suspense fallback={<p>Loading Page</p>}>
+            <CreateOrder />
+          </Suspense>
+        ),
+      },
+      {
         path: "manage/branches",
         element: (
           <Suspense fallback={<p>Loading Page</p>}>
             <Branches />
+          </Suspense>
+        ),
+      },
+      {
+        path: "manage/branches/create",
+        element: (
+          <Suspense fallback={<p>Loading Page</p>}>
+            <CreateBranch />
           </Suspense>
         ),
       },
@@ -83,10 +109,26 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "manage/users/create",
+        element: (
+          <Suspense fallback={<p>Loading Page</p>}>
+            <CreateUser />
+          </Suspense>
+        ),
+      },
+      {
         path: "manage/stock",
         element: (
           <Suspense fallback={<p>Loading Page</p>}>
             <Stock />
+          </Suspense>
+        ),
+      },
+      {
+        path: "manage/stock/create",
+        element: (
+          <Suspense fallback={<p>Loading Page</p>}>
+            <CreateStock />
           </Suspense>
         ),
       },

@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useApp } from "../lib/AppStore";
 import { ArrowDown } from "lucide-react";
 import { LogOut } from "lucide-react";
+import { Store } from "lucide-react";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -44,6 +45,11 @@ const Sidebar = () => {
       name: "User Management",
       icon: <Users size={20} />,
       path: "/dashboard/manage/users",
+    },
+    {
+      name: "Stock Management",
+      icon: <Store size={20} />,
+      path: "/dashboard/manage/stock",
     },
   ];
 
