@@ -46,11 +46,11 @@ const Login = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-primary_pink/20 to-gray-200">
-      <img src={Logo} alt="shakes-dessert" width={200} />
+      <img src={Logo} alt="shakes-dessert" className="w-[10rem] mb-3" />
 
       <form
         onSubmit={handleLogin}
-        className="w-full sm:w-[70%] lg:w-1/2 bg-white rounded-[2rem] relative text-dark p-5 sm:p-10"
+        className="w-[90%] sm:w-[70%] lg:w-1/3 bg-white rounded-[2rem] relative text-dark p-5 sm:p-10"
       >
         <div className="border-b-2 border-gray-400">
           <label htmlFor="email-address" className="text-[17px]">
