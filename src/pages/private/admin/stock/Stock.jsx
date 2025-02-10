@@ -14,7 +14,7 @@ const Stock = () => {
           label="Add Stock"
           variant="contained"
           icon={<Plus />}
-          onClick={() => navigate("create")}
+          onClick={() => navigate("/dashboard/manage/stock/create")}
         />
       </div>
     </>

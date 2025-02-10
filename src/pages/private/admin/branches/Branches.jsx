@@ -14,7 +14,7 @@ const Branches = () => {
           label="Add Branch"
           variant="contained"
           icon={<Plus />}
-          onClick={() => navigate("create")}
+          onClick={() => navigate("/dashboard/manage/branches/create")}
         />
       </div>
     </>

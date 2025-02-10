@@ -14,7 +14,7 @@ const Users = () => {
           label="Add User"
           variant="contained"
           icon={<Plus />}
-          onClick={() => navigate("create")}
+          onClick={() => navigate("/dashboard/manage/users/create")}
         />
       </div>
     </>

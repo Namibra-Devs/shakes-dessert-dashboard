@@ -12,7 +12,7 @@ const Orders = () => {
           label="Add Order"
           variant="contained"
           icon={<Plus />}
-          onClick={() => navigate("create")}
+          onClick={() => navigate("/dashboard/manage/orders/create")}
         />
       </div>
     </>
