@@ -55,7 +55,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`bg-bg_gray w-[70%] h-screen lg:h-[97vh] sm:w-[40%] lg:w-[20%] fixed top-0 z-10 lg:relative flex flex-col items-center px-4 py-3 transition-all duration-500 lg:left-0 ${
+      className={`bg-bg_gray w-[80%] h-screen lg:h-[97vh] sm:w-[40%] lg:w-[20%] fixed top-0 z-10 lg:relative flex flex-col items-center px-4 py-3 transition-all duration-500 lg:left-0 ${
         sidebar ? "left-0 shadow-md" : "-left-full"
       }`}
     >

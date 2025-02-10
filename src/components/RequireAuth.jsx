@@ -13,7 +13,7 @@ const RequireAuth = () => {
   return user ? (
     <div className="flex">
       <Sidebar />
-      <main className="flex-[4] bg-white py-5 px-2 sm:px-5 h-fit sm:h-screen">
+      <main className="flex-[4] bg-white py-5 px-2 sm:px-5 h-fit sm:h-screen sm:overflow-y-scroll">
         <SidebarIcon className="lg:hidden block" onClick={openSidebar} />
         <Outlet />
       </main>

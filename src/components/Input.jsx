@@ -2,11 +2,14 @@ import PropTypes from "prop-types";
 import { LucideEyeClosed, LucideEye } from "lucide-react";
 import { useState } from "react";
 
-const Input = ({ label, name, id, value, onChange, type, disabled }) => {
+const Input = ({ label, name, id, value, onChange, type }) => {
   const [inputState, setInputState] = useState(type);
   return (
     <div className="mb-4">
-      <label className="block text-sm" htmlFor={id}>
+      <label
+        className="block font-[300] text-[16px] sm:text-[20px]"
+        htmlFor={id}
+      >
         {label}
       </label>
       <div className="flex items-center space-x-2">
@@ -18,10 +21,7 @@ const Input = ({ label, name, id, value, onChange, type, disabled }) => {
           onChange={onChange}
           required
           autoComplete="new-password"
-          disabled={disabled}
-          className={`mt-1 block w-full p-2 border-2 rounded-md border-gray-300 focus:ring-red-500 focus:border-red-500 text-gray-600 ${
-            disabled ? "cursor-not-allowed" : "cursor-text"
-          }`}
+          className={`mt-1 block w-full p-2 border-[1px] rounded-md border-gray-300 focus:ring-primary_pink focus:border-primary_pink text-gray-600 outline-none`}
         />
         <button
           type="button"
@@ -44,7 +44,6 @@ Input.propTypes = {
   value: PropTypes.any,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
 };
 
 export default Input;
