@@ -57,7 +57,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <h3 className="font-[400] text-[25px] capitalize text-dark">
+      <h3 className="font-[600] sm:font-[400] text-[20px] sm:text-[25px] capitalize text-dark">
         Hello, {user?.role}
       </h3>
       <p className="text-base text-gray-600">

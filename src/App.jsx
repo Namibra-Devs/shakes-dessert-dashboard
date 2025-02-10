@@ -77,7 +77,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "orders/create",
+        path: "manage/orders/create",
         element: (
           <Suspense fallback={<p>Loading Page</p>}>
             <CreateOrder />

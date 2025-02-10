@@ -7,11 +7,11 @@ const Orders = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <h3 className="font-[400] text-[25px] capitalize text-dark">Orders</h3>
+        <h3 className="page_header">Orders</h3>
         <CustomButton
           label="Add Order"
           variant="contained"
-          icon={<Plus />}
+          icon={<Plus size={20} />}
           onClick={() => navigate("/dashboard/manage/orders/create")}
         />
       </div>

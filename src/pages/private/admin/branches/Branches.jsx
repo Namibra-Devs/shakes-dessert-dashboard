@@ -7,13 +7,11 @@ const Branches = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <h3 className="font-[400] text-[25px] capitalize text-dark">
-          Branch Management
-        </h3>
+        <h3 className="page_header">Branch Management</h3>
         <CustomButton
           label="Add Branch"
           variant="contained"
-          icon={<Plus />}
+          icon={<Plus size={20} />}
           onClick={() => navigate("/dashboard/manage/branches/create")}
         />
       </div>

@@ -5,3 +5,9 @@
 body {
   background: #f7f7f7;
 }
+
+@layer utilities {
+  .page_header {
+    @apply font-[600] sm:font-[400] text-[16px] sm:text-[25px] capitalize text-dark;
+  }
+}
