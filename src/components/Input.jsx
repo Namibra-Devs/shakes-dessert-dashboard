@@ -7,7 +7,7 @@ const Input = ({ label, name, id, value, onChange, type }) => {
   return (
     <div className="mb-4">
       <label
-        className="block font-[300] text-[16px] sm:text-[20px]"
+        className="block font-[300] text-[16px] sm:text-[18px]"
         htmlFor={id}
       >
         {label}

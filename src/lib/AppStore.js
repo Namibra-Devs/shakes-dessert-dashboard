@@ -6,4 +6,15 @@ export const useApp = create((set) => ({
   setAuth: (data) => set({ auth: data }),
   closeSidebar: () => set({ sidebar: false }),
   openSidebar: () => set({ sidebar: true }),
+
+  alert: {
+    message: "",
+    type: "",
+  },
+
+  setAlert: ({ message, type }) => {
+    set((state) => ({
+      alert: { ...state.alert, message, type },
+    }));
+  },
 }));

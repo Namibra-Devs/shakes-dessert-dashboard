@@ -1,5 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { useEffect } from "react";
+import { useApp } from "./lib/AppStore";
+import Alert from "./components/Alert";
 
 const Login = lazy(() => import("./pages/public/Login"));
 const ErrorPage = lazy(() => import("./pages/public/ErrorPage"));
@@ -137,8 +140,21 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const { alert, setAlert } = useApp((state) => state);
+
+  useEffect(() => {
+    if (!alert.message) return;
+
+    const timeoutId = setTimeout(() => {
+      setAlert({ message: "", type: "" });
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, [alert.message, setAlert]);
+
   return (
     <>
+      {alert?.message && <Alert message={alert.message} type={alert.type} />}
       <RouterProvider router={router} />
     </>
   );

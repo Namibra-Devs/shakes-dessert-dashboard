@@ -7,13 +7,13 @@ const Dropdown = ({ options, item, setItem, label, defaultSelect }) => {
 
   return (
     <div className="mb-4">
-      <label className="block font-[300] text-[16px] sm:text-[20px]">
+      <label className="block font-[300] text-[16px] sm:text-[18px]">
         {label}
       </label>
       <div className="relative text-dark cursor-pointer">
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-between border-2 border-gray-300 rounded-md px-4 py-2 w-full text-sm"
+          className="flex items-center justify-between border-[1px] border-gray-300 rounded-md px-4 py-2 w-full text-sm"
         >
           {item ? item : defaultSelect}
           <ChevronDown size={20} />

@@ -1,16 +1,19 @@
 import CustomButton from "@/components/CustomButton";
 import Dropdown from "@/components/Dropdown";
 import Input from "@/components/Input";
+import { useApp } from "@/lib/AppStore";
 import { useBranchStore } from "@/lib/PageStore";
 import { CalendarClock } from "lucide-react";
 import { ChevronRight, CupSoda } from "lucide-react";
 
 const CreateBranch = () => {
   const { branch, updateField, clearFields } = useBranchStore((state) => state);
+  const { setAlert } = useApp((state) => state);
 
   const handleAddBranch = async (e) => {
     e.preventDefault();
     console.log({ branch });
+    setAlert({ message: "test", type: "success" });
   };
   return (
     <>
@@ -62,7 +65,7 @@ const CreateBranch = () => {
 
         <div>
           <label
-            className="block font-[300] text-[16px] sm:text-[20px]"
+            className="block font-[300] text-[16px] sm:text-[18px]"
             htmlFor={"description"}
           >
             Description
@@ -113,7 +116,7 @@ const CreateBranch = () => {
           }
         />
 
-        <div className="flex items-center space-x-5">
+        <div className="flex items-center space-x-5 mb-5">
           <CustomButton
             label="cancel"
             variant="outlined"
