@@ -61,46 +61,27 @@ const generateColumns = ({ onEditClick, onDeleteClick }) => {
       enableHiding: false,
     },
     {
-      accessorKey: "name",
-      header: "Name",
+      accessorKey: "itemName",
+      header: "Item Name",
       cell: ({ row }) => (
         <div className="capitalize">
-          {row.getValue("name") || "unavailable"}
+          {row.getValue("itemName") || "unavailable"}
         </div>
       ),
     },
     {
-      accessorKey: "location",
-      header: "Location",
-      cell: ({ row }) => (
-        <div className="capitalize">
-          {row.getValue("location") || "unavailable"}
-        </div>
-      ),
-    },
-    {
-      accessorKey: "createdAt",
-      header: "Date Created",
-      cell: ({ row }) => (
-        <p>{row.getValue("createdAt")}</p>
-        // <div className="capitalize">
-        //   {formatDate(row.getValue("createdAt")) || "unavailable"}
-        // </div>
-      ),
-    },
-    {
-      accessorKey: "status",
-      header: "Status",
+      accessorKey: "createdBy",
+      header: "Created By",
       filterFn: (row, columnId, filterValue) => {
         const status = row.getValue(columnId);
         return status.toLowerCase() === filterValue.toLowerCase();
       },
       cell: ({ row }) => {
-        const value = row.getValue("status");
+        const value = row.getValue("createdBy");
         return value ? (
           <div
-            className={`capitalize w-16 text-center text-[12px] py-1 px-2 rounded-md ${
-              value === "active"
+            className={`capitalize w-fit py-1 px-2 text-[12px] rounded-md ${
+              value.toLowerCase() === "admin"
                 ? "text-success bg-success/20"
                 : "text-danger bg-danger/20"
             }`}
@@ -113,11 +94,38 @@ const generateColumns = ({ onEditClick, onDeleteClick }) => {
       },
     },
     {
+      accessorKey: "category",
+      header: "Category",
+      cell: ({ row }) => <p>{row.getValue("category")}</p>,
+    },
+    {
+      accessorKey: "foodType",
+      header: "Food Type",
+      cell: ({ row }) => <p>{row.getValue("foodType")}</p>,
+    },
+    {
+      accessorKey: "price",
+      header: "Price",
+      cell: ({ row }) => <p>{row.getValue("price")}</p>,
+    },
+    {
+      accessorKey: "branch",
+      header: "Branch",
+      cell: ({ row }) => {
+        const branch = row.getValue("branch");
+        return <p>{branch}</p>;
+      },
+      filterFn: (row, columnId, filterValue) => {
+        const branch = row.getValue(columnId);
+        return branch?.toLowerCase().includes(filterValue.toLowerCase());
+      },
+    },
+    {
       id: "actions",
       header: "Actions",
       enableHiding: false,
       cell: ({ row }) => {
-        const branch = row.original;
+        const stock = row.original;
 
         return (
           <DropdownMenu>
@@ -129,11 +137,11 @@ const generateColumns = ({ onEditClick, onDeleteClick }) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => onEditClick(branch)}>
+              <DropdownMenuItem onClick={() => onEditClick(stock)}>
                 Edit Branch
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => onDeleteClick(branch?._id)}>
+              <DropdownMenuItem onClick={() => onDeleteClick(stock?._id)}>
                 Delete Branch
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -144,12 +152,12 @@ const generateColumns = ({ onEditClick, onDeleteClick }) => {
   ];
 };
 
-export function BranchTable({
+export function StockTable({
   onEditClick,
   onDeleteClick,
-  branches,
-  locations,
-  dates,
+  stocks,
+  //   locations,
+  //   dates,
   //   isFetchLoading,
 }) {
   const [sorting, setSorting] = useState([]);
@@ -163,18 +171,9 @@ export function BranchTable({
   //   } = useAuth();
 
   const columns = generateColumns({ onEditClick, onDeleteClick });
-  const [globalFilter, setGlobalFilter] = useState("");
-
-  const globalFilterFn = (row, filterValue) => {
-    const name = row.original.name?.toLowerCase() ?? "";
-    const location = row.original.location?.toLowerCase() ?? "";
-    const searchValue = filterValue.toLowerCase();
-
-    return name.includes(searchValue) || location.includes(searchValue);
-  };
 
   const table = useReactTable({
-    data: branches,
+    data: stocks,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -184,20 +183,17 @@ export function BranchTable({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    onGlobalFilterChange: setGlobalFilter,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
-      globalFilter,
     },
-    globalFilterFn,
   });
 
-  const [selectedStatus, setSelectedStatus] = useState("Status");
-  const [selectedDate, setSelectedDate] = useState("Date");
-  const [selectedLocation, setSelectedLocation] = useState("Location");
+  const [selectedBranch, setSelectedBranch] = useState("Branch");
+  const [selectedCreatedBy, setSelectedCreatedBy] = useState("Created By");
+  const [selectedCategory, setSelectedCategory] = useState("Category");
   //   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   //   const [loading, setLoading] = useState(false);
   //   const { setAlert } = useAppContext();
@@ -304,34 +300,36 @@ export function BranchTable({
 
         <div className="flex items-center space-x-3">
           <Input
-            placeholder="Search name or location ..."
-            value={globalFilter}
-            onChange={(event) => setGlobalFilter(event.target.value)}
-            className="max-w-52"
+            placeholder="Search by name"
+            value={table.getColumn("itemName")?.getFilterValue() ?? ""}
+            onChange={(event) =>
+              table.getColumn("itemName")?.setFilterValue(event.target.value)
+            }
+            className="max-w-48"
           />
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
-                {selectedLocation} <ChevronDown />
+                {selectedCreatedBy} <ChevronDown />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              {locations?.map((location, index) => (
+              {["Admin", "Jawad"]?.map((person, index) => (
                 <DropdownMenuItem
                   key={index}
                   onClick={() => {
-                    setSelectedLocation(location);
-                    table.getColumn("location")?.setFilterValue(location);
+                    table.getColumn("createdBy")?.setFilterValue(person);
+                    setSelectedCreatedBy(person);
                   }}
                 >
-                  {location}
+                  {person}
                 </DropdownMenuItem>
               ))}
               <DropdownMenuItem
                 onClick={() => {
-                  setSelectedLocation("Location");
-                  table.getColumn("location")?.setFilterValue(""); // Clear the filter to show all staff
+                  setSelectedCreatedBy("Created By");
+                  table.getColumn("createdBy")?.setFilterValue(""); // Clear the filter
                 }}
               >
                 Clear Filter
@@ -342,25 +340,25 @@ export function BranchTable({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
-                {selectedStatus} <ChevronDown />
+                {selectedCategory} <ChevronDown />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              {["Active", "Inactive"].map((status) => (
+              {["Most Popular"]?.map((category, index) => (
                 <DropdownMenuItem
-                  key={status}
+                  key={index}
                   onClick={() => {
-                    setSelectedStatus(status);
-                    table.getColumn("status")?.setFilterValue(status); // Sets the exact value
+                    table.getColumn("category")?.setFilterValue(category);
+                    setSelectedCategory(category);
                   }}
                 >
-                  {status}
+                  {category}
                 </DropdownMenuItem>
               ))}
               <DropdownMenuItem
                 onClick={() => {
-                  setSelectedStatus("Status");
-                  table.getColumn("status")?.setFilterValue(""); // Clear filter
+                  setSelectedCategory("Category");
+                  table.getColumn("category")?.setFilterValue(""); // Clear the filter
                 }}
               >
                 Clear Filter
@@ -371,26 +369,25 @@ export function BranchTable({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
-                {selectedDate} <ChevronDown />
+                {selectedBranch} <ChevronDown />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              {dates?.map((date) => (
+              {["Accra"]?.map((branch, index) => (
                 <DropdownMenuItem
-                  key={date}
+                  key={index}
                   onClick={() => {
-                    setSelectedDate(date);
-                    table.getColumn("createdAt")?.setFilterValue(date);
+                    table.getColumn("branch")?.setFilterValue(branch);
+                    setSelectedBranch(branch);
                   }}
                 >
-                  {/* {formatDate(date, true)} */}
-                  {date}
+                  {branch}
                 </DropdownMenuItem>
               ))}
               <DropdownMenuItem
                 onClick={() => {
-                  setSelectedDate("Date");
-                  table.getColumn("createdAt")?.setFilterValue(""); // Clear the filter to show all staff
+                  setSelectedBranch("Branch");
+                  table.getColumn("branch")?.setFilterValue(""); // Clear the filter
                 }}
               >
                 Clear Filter
@@ -480,11 +477,11 @@ export function BranchTable({
   );
 }
 
-BranchTable.propTypes = {
+StockTable.propTypes = {
   onEditClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
-  branches: PropTypes.array.isRequired,
+  stocks: PropTypes.array.isRequired,
   locations: PropTypes.array.isRequired,
   dates: PropTypes.array.isRequired,
-  isFetchLoading: PropTypes.bool,
+  //   isFetchLoading: PropTypes.bool,
 };
