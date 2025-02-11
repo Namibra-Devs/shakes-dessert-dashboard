@@ -2,6 +2,7 @@ import CustomButton from "@/components/CustomButton";
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { BranchTable } from "./BranchTable";
+import EmptyImage from "@/assets/images/empty.png";
 
 const Branches = () => {
   const navigate = useNavigate();
@@ -44,19 +45,32 @@ const Branches = () => {
         />
       </div>
 
-      {branches.length > 0 ? (
-        <div className="w-screen sm:w-full overflow-auto">
-          <BranchTable
-            branches={branches}
-            dates={dates}
-            locations={locations}
-            onEditClick={onEditClick}
-            onDeleteClick={onDeleteClick}
-          />
-        </div>
-      ) : (
-        <p>No Data</p>
-      )}
+      {branches &&
+        (branches.length > 0 ? (
+          <div className="w-screen sm:w-full overflow-auto">
+            <BranchTable
+              branches={branches}
+              dates={dates}
+              locations={locations}
+              onEditClick={onEditClick}
+              onDeleteClick={onDeleteClick}
+            />
+          </div>
+        ) : (
+          <div className="flex items-center justify-center flex-col h-[70vh] gap-5">
+            <img src={EmptyImage} alt="" />
+            <p className="w-full sm:w-[50%] text-center text-dark">
+              No branches added yet! Once you add a new branch, they will appear
+              here for tracking and updates.
+            </p>
+            <CustomButton
+              label="Add Branch"
+              variant="contained"
+              icon={<Plus size={20} />}
+              onClick={() => navigate("/dashboard/manage/branches/create")}
+            />
+          </div>
+        ))}
     </>
   );
 };
