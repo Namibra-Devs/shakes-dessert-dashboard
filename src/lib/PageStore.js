@@ -61,3 +61,32 @@ export const useStockStore = create((set) => ({
     }));
   },
 }));
+
+export const useUserStore = create((set) => ({
+  user: {
+    staffName: "",
+    email: "",
+    password: "",
+    branch: "",
+  },
+
+  updateField: (value, field) => {
+    set((state) => ({
+      user: {
+        ...state.user,
+        [field]: value.toLowerCase() === "clear" ? "" : value,
+      },
+    }));
+  },
+
+  clearUser: () => {
+    set(() => ({
+      user: {
+        staffName: "",
+        email: "",
+        password: "",
+        branch: "",
+      },
+    }));
+  },
+}));
