@@ -11,3 +11,9 @@ body {
     @apply font-[600] sm:font-[400] text-[16px] sm:text-[25px] capitalize text-dark;
   }
 }
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}

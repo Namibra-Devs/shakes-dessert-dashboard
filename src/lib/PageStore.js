@@ -2,14 +2,19 @@ import { create } from "zustand";
 
 export const useBranchStore = create((set) => ({
   branch: {
-    itemName: "",
-    category: "",
-    foodType: "",
-    description: "",
-    price: "",
-    branch: "",
-    availability: "",
+    branchName: "",
+    location: "",
+    status: "",
   },
+  // branch: {
+  //   itemName: "",
+  //   category: "",
+  //   foodType: "",
+  //   description: "",
+  //   price: "",
+  //   branch: "",
+  //   availability: "",
+  // },
 
   updateField: (value, field) => {
     set((state) => ({
@@ -20,16 +25,12 @@ export const useBranchStore = create((set) => ({
     }));
   },
 
-  clearFields: () => {
+  clearBranch: () => {
     set(() => ({
       branch: {
-        itemName: "",
-        category: "",
-        foodType: "",
-        description: "",
-        price: "",
-        branch: "",
-        availability: "",
+        branchName: "",
+        location: "",
+        status: "",
       },
     }));
   },

@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-const Dropdown = ({ options, item, setItem, label, defaultSelect }) => {
+const Dropdown = ({ options, item, setItem, label }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ const Dropdown = ({ options, item, setItem, label, defaultSelect }) => {
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center justify-between border-[1px] border-gray-300 rounded-md px-4 py-2 w-full text-sm"
         >
-          {item ? item : defaultSelect}
+          {item ? item : `-- select ${label.toLowerCase()} --`}
           <ChevronDown size={20} />
         </div>
         {isOpen && (
@@ -48,7 +48,6 @@ Dropdown.propTypes = {
   item: PropTypes.string,
   setItem: PropTypes.func.isRequired,
   label: PropTypes.string,
-  defaultSelect: PropTypes.node,
 };
 
 export default Dropdown;
