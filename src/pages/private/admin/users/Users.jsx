@@ -2,10 +2,33 @@ import CustomButton from "@/components/CustomButton";
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import EmptyImage from "@/assets/images/empty.png";
+import { UsersTable } from "./UsersTable";
 
 const Users = () => {
   const navigate = useNavigate();
-  const users = [];
+  const users = [
+    {
+      _id: "2860492856",
+      staffName: "Mike Lio",
+      email: "mike@yahoo.com",
+      branch: "Accra",
+      createdAt: "08-Oct-2024",
+    },
+    {
+      _id: "9340912864",
+      staffName: "Berlin",
+      email: "lino@yahoo.com",
+      branch: "Tamale",
+      createdAt: "17-Nov-2024",
+    },
+  ];
+
+  const onEditClick = (staff) => {
+    console.log(staff);
+  };
+  const onDeleteClick = (staffId) => {
+    console.log(staffId);
+  };
   return (
     <>
       <div className="flex items-center justify-between">
@@ -19,8 +42,14 @@ const Users = () => {
       </div>
 
       {users &&
-        (users.length > 0 ? (
-          <p>users table</p>
+        (users?.length > 0 ? (
+          <div className="w-screen sm:w-full overflow-auto">
+            <UsersTable
+              users={users}
+              onEditClick={onEditClick}
+              onDeleteClick={onDeleteClick}
+            />
+          </div>
         ) : (
           <div className="flex items-center justify-center flex-col h-[70vh] gap-5">
             <img src={EmptyImage} alt="" />
