@@ -4,7 +4,7 @@ import Input from "@/components/Input";
 import { useApp } from "@/lib/AppStore";
 import { useBranchStore } from "@/lib/PageStore";
 import { ChevronLeft } from "lucide-react";
-import { ChevronRight, CupSoda } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 const CreateBranch = () => {
   const { branch, updateField, clearBranch } = useBranchStore((state) => state);

@@ -6,15 +6,6 @@ export const useBranchStore = create((set) => ({
     location: "",
     status: "",
   },
-  // branch: {
-  //   itemName: "",
-  //   category: "",
-  //   foodType: "",
-  //   description: "",
-  //   price: "",
-  //   branch: "",
-  //   availability: "",
-  // },
 
   updateField: (value, field) => {
     set((state) => ({
@@ -31,6 +22,41 @@ export const useBranchStore = create((set) => ({
         branchName: "",
         location: "",
         status: "",
+      },
+    }));
+  },
+}));
+
+export const useStockStore = create((set) => ({
+  stock: {
+    itemName: "",
+    category: "",
+    foodType: "",
+    description: "",
+    price: "",
+    branch: "",
+    availability: "",
+  },
+
+  updateField: (value, field) => {
+    set((state) => ({
+      stock: {
+        ...state.stock,
+        [field]: value.toLowerCase() === "clear" ? "" : value,
+      },
+    }));
+  },
+
+  clearStock: () => {
+    set(() => ({
+      stock: {
+        itemName: "",
+        category: "",
+        foodType: "",
+        description: "",
+        price: "",
+        branch: "",
+        availability: "",
       },
     }));
   },

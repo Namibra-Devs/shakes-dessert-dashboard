@@ -2,17 +2,17 @@ import CustomButton from "@/components/CustomButton";
 import Dropdown from "@/components/Dropdown";
 import Input from "@/components/Input";
 import { useApp } from "@/lib/AppStore";
-import { useBranchStore } from "@/lib/PageStore";
-import { CalendarClock, ChevronLeft } from "lucide-react";
-import { ChevronRight, CupSoda } from "lucide-react";
+import { useStockStore } from "@/lib/PageStore";
+import { ChevronLeft } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 const CreateStock = () => {
-  const { branch, updateField, clearFields } = useBranchStore((state) => state);
+  const { stock, updateField, clearStock } = useStockStore((state) => state);
   const { setAlert } = useApp((state) => state);
 
   const handleAddBranch = async (e) => {
     e.preventDefault();
-    console.log({ branch });
+    console.log({ stock });
     setAlert({ message: "test", type: "success" });
   };
   return (
@@ -39,7 +39,7 @@ const CreateStock = () => {
         <Input
           type={"text"}
           label={"Item Name"}
-          value={branch?.itemName}
+          value={stock?.itemName}
           onChange={(e) => updateField(e.target.value, "itemName")}
           name={"itemName"}
           id={"itemName"}
@@ -48,27 +48,15 @@ const CreateStock = () => {
         <Dropdown
           label={"Category"}
           options={["hello", "bye", "Clear"]}
-          item={branch?.category}
+          item={stock?.category}
           setItem={(selectedItem) => updateField(selectedItem, "category")}
-          defaultSelect={
-            <div className="text-dark flex items-center space-x-2">
-              <CalendarClock />
-              <span>Today&apos;s Menu</span>
-            </div>
-          }
         />
 
         <Dropdown
           label={"Food Type"}
           options={["hello", "bye", "Clear"]}
-          item={branch?.foodType}
+          item={stock?.foodType}
           setItem={(selectedItem) => updateField(selectedItem, "foodType")}
-          defaultSelect={
-            <div className="text-dark flex items-center space-x-2">
-              <CupSoda />
-              <span>Drinks</span>
-            </div>
-          }
         />
 
         <div>
@@ -79,7 +67,7 @@ const CreateStock = () => {
             Description
           </label>
           <textarea
-            value={branch?.description}
+            value={stock?.description}
             onChange={(e) => updateField(e.target.value, "description")}
             name={"description"}
             id={"description"}
@@ -87,48 +75,47 @@ const CreateStock = () => {
           />
         </div>
 
-        <div>
-          <Input
+        <label
+          className="block font-[300] text-[16px] sm:text-[18px] mt-5"
+          htmlFor={"description"}
+        >
+          Price
+        </label>
+        <div className="flex items-center space-x-2 mb-4">
+          <div className="border-[1px] border-gray-400 rounded-md px-3 py-2">
+            GHC
+          </div>
+          <input
             type={"number"}
-            label={"Price"}
             name={"price"}
             id={"price"}
-            value={branch?.price}
+            value={stock?.price}
             onChange={(e) => updateField(e.target.value, "price")}
+            required
+            autoComplete="new-password"
+            className={`block w-full p-2 border-[1px] rounded-md border-gray-300 focus:ring-primary_pink focus:border-primary_pink text-gray-600 outline-none`}
           />
         </div>
 
         <Dropdown
           label={"Branch"}
           options={["Branch A", "Branch B", "Clear"]}
-          item={branch?.branch}
+          item={stock?.branch}
           setItem={(selectedItem) => updateField(selectedItem, "branch")}
-          defaultSelect={
-            <div className="text-dark flex items-center space-x-2">
-              <CupSoda />
-              <span>Branch</span>
-            </div>
-          }
         />
 
         <Dropdown
           label={"Availability"}
           options={["In Stock", "Out Of Stock", "Clear"]}
-          item={branch?.availability}
+          item={stock?.availability}
           setItem={(selectedItem) => updateField(selectedItem, "availability")}
-          defaultSelect={
-            <div className="text-dark flex items-center space-x-2">
-              <CupSoda />
-              <span>-</span>
-            </div>
-          }
         />
 
         <div className="flex items-center space-x-5 mb-5">
           <CustomButton
             label="cancel"
             variant="outlined"
-            onClick={clearFields}
+            onClick={clearStock}
           />
           <CustomButton type={"submit"} label="save" variant="contained" />
         </div>
