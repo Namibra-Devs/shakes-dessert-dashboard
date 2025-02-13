@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { useEffect } from "react";
 import { useApp } from "./lib/AppStore";
 import Alert from "./components/Alert";
+import LoadingPage from "./components/LoadingPage";
 
 const Login = lazy(() => import("./pages/public/Login"));
 const ErrorPage = lazy(() => import("./pages/public/ErrorPage"));
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback={<p>Loading Page</p>}>
+      <Suspense fallback={<LoadingPage />}>
         <Login />
       </Suspense>
     ),
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
   {
     path: "dashboard",
     element: (
-      <Suspense fallback={<p>Loading Page</p>}>
+      <Suspense fallback={<LoadingPage />}>
         <RequireAuth />
       </Suspense>
     ),
@@ -66,7 +67,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<p>Loading Page</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <Dashboard />
           </Suspense>
         ),
@@ -74,7 +75,7 @@ const router = createBrowserRouter([
       {
         path: "orders",
         element: (
-          <Suspense fallback={<p>Loading Page</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <Orders />
           </Suspense>
         ),
@@ -82,7 +83,7 @@ const router = createBrowserRouter([
       {
         path: "manage/orders/create",
         element: (
-          <Suspense fallback={<p>Loading Page</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <CreateOrder />
           </Suspense>
         ),
@@ -90,7 +91,7 @@ const router = createBrowserRouter([
       {
         path: "manage/branches",
         element: (
-          <Suspense fallback={<p>Loading Page</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <Branches />
           </Suspense>
         ),
@@ -98,7 +99,7 @@ const router = createBrowserRouter([
       {
         path: "manage/branches/create",
         element: (
-          <Suspense fallback={<p>Loading Page</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <CreateBranch />
           </Suspense>
         ),
@@ -106,7 +107,7 @@ const router = createBrowserRouter([
       {
         path: "manage/users",
         element: (
-          <Suspense fallback={<p>Loading Page</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <Users />
           </Suspense>
         ),
@@ -114,7 +115,7 @@ const router = createBrowserRouter([
       {
         path: "manage/users/create",
         element: (
-          <Suspense fallback={<p>Loading Page</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <CreateUser />
           </Suspense>
         ),
@@ -122,7 +123,7 @@ const router = createBrowserRouter([
       {
         path: "manage/stock",
         element: (
-          <Suspense fallback={<p>Loading Page</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <Stock />
           </Suspense>
         ),
@@ -130,7 +131,7 @@ const router = createBrowserRouter([
       {
         path: "manage/stock/create",
         element: (
-          <Suspense fallback={<p>Loading Page</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <CreateStock />
           </Suspense>
         ),

@@ -1,47 +1,29 @@
+import animatePlugin from "tailwindcss-animate";
+
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: ["class"],
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: ["class"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-  	extend: {
-  		colors: {
-  			primary_pink: '#EE50A4',
-  			primary_blue: '#386CAA',
-  			bg_gray: '#f7f7f7',
-  			dark: '#373737',
-  			danger: '#CD3336',
-  			success: '#007F6D'
-  		},
-  		animation: {
-  			bounce: 'bounce 1.5s ease-in-out infinite',
-  			fadeInScaleUp: 'fadeInScaleUp 0.3s ease-out'
-  		},
-  		keyframes: {
-  			bounce: {
-  				'0%, 100%': {
-  					transform: 'translateY(0)'
-  				},
-  				'50%': {
-  					transform: 'translateY(-0.75rem)'
-  				}
-  			},
-  			fadeInScaleUp: {
-  				'0%': {
-  					opacity: 0,
-  					transform: 'scale(0.9)'
-  				},
-  				'100%': {
-  					opacity: 1,
-  					transform: 'scale(1)'
-  				}
-  			}
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		}
-  	}
+    extend: {
+      colors: {
+        primary_pink: "#EE50A4",
+        primary_blue: "#386CAA",
+        bg_gray: "#f7f7f7",
+        dark: "#373737",
+        danger: "#CD3336",
+        success: "#007F6D",
+      },
+      animation: {
+        "bounce-bar": "bounce-bar 1s infinite ease-in-out",
+      },
+      keyframes: {
+        "bounce-bar": {
+          "0%, 100%": { height: "10px", opacity: "0.3" },
+          "50%": { height: "25px", opacity: "1" },
+        },
+      },
+    },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animatePlugin],
 };
