@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import EmptyImage from "@/assets/images/empty.png";
 import { useState } from "react";
 import { StockTable } from "./StockTable";
+import EditModal from "@/components/EditModal";
+import { useApp } from "@/lib/AppStore";
 
 const Stock = () => {
   const [activeTab, setActiveTab] = useState("All");
+  const { setModalState, setItemToEdit } = useApp((state) => state);
   const navigate = useNavigate();
   const stocks = [
     {
@@ -43,7 +46,9 @@ const Stock = () => {
   ];
 
   const onEditClick = (stock) => {
-    console.log(stock);
+    // console.log(stock);
+    setItemToEdit(stock);
+    setModalState("open");
   };
   const onDeleteClick = (stockId) => {
     console.log(stockId);
@@ -51,6 +56,7 @@ const Stock = () => {
 
   return (
     <>
+      <EditModal page={"Stock"} />
       <div className="flex items-center justify-between">
         <h3 className="page_header">Stock Management</h3>
         <CustomButton

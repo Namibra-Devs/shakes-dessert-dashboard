@@ -17,4 +17,16 @@ export const useApp = create((set) => ({
       alert: { ...state.alert, message, type },
     }));
   },
+
+  modalState: "closed",
+
+  setModalState: (state) => {
+    set(() => ({ modalState: state }));
+  },
+
+  itemToEdit: {},
+
+  setItemToEdit: (item) => {
+    set(() => ({ itemToEdit: item }));
+  },
 }));
