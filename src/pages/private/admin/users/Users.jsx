@@ -3,8 +3,11 @@ import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import EmptyImage from "@/assets/images/empty.png";
 import { UsersTable } from "./UsersTable";
+import { useApp } from "@/lib/AppStore";
+import EditModal from "@/components/EditModal";
 
 const Users = () => {
+  const { setModalState, setItemToEdit } = useApp((state) => state);
   const navigate = useNavigate();
   const users = [
     {
@@ -24,13 +27,15 @@ const Users = () => {
   ];
 
   const onEditClick = (staff) => {
-    console.log(staff);
+    setItemToEdit(staff);
+    setModalState("open");
   };
   const onDeleteClick = (staffId) => {
     console.log(staffId);
   };
   return (
     <>
+      <EditModal page={"User"} />
       <div className="flex items-center justify-between">
         <h3 className="page_header">User Management</h3>
         <CustomButton

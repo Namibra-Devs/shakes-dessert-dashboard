@@ -46,7 +46,6 @@ const Stock = () => {
   ];
 
   const onEditClick = (stock) => {
-    // console.log(stock);
     setItemToEdit(stock);
     setModalState("open");
   };

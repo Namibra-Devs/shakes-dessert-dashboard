@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 import { useApp } from "@/lib/AppStore";
 import { X } from "lucide-react";
 import CustomButton from "./CustomButton";
+import EditUserForm from "@/pages/private/admin/users/EditUserForm";
+import EditBranchForm from "@/pages/private/admin/branches/EditBranchForm";
 
 const EditModal = ({ page }) => {
   const allowedPages = ["Stock", "User", "Branch"];
@@ -27,20 +29,22 @@ const EditModal = ({ page }) => {
           </button>
         </div>
 
-        {allowedPages.includes(page) &&
-          (page === "Stock" ? (
-            <EditStockForm />
-          ) : page === "User" ? (
-            "edit user form"
-          ) : (
-            "edit branch form"
-          ))}
+        <div className="p-5">
+          {allowedPages.includes(page) &&
+            (page === "Stock" ? (
+              <EditStockForm />
+            ) : page === "User" ? (
+              <EditUserForm />
+            ) : (
+              <EditBranchForm />
+            ))}
+        </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-200 flex justify-end gap-4">
+        <div className="px-6 py-4 border-t border-gray-200 absolute bottom-0 left-0 w-full">
           <CustomButton
             label="Back"
-            variant="outlined"
+            variant="contained"
             onClick={() => setModalState("close")}
           />
         </div>

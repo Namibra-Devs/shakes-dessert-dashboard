@@ -113,11 +113,11 @@ const generateColumns = ({ onEditClick, onDeleteClick }) => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem onClick={() => onEditClick(staff)}>
-                Edit Branch
+                Edit Staff
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => onDeleteClick(staff?._id)}>
-                Delete Branch
+                Delete Staff
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

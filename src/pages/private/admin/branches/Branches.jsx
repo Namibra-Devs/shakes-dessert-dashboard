@@ -3,8 +3,11 @@ import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { BranchTable } from "./BranchTable";
 import EmptyImage from "@/assets/images/empty.png";
+import EditModal from "@/components/EditModal";
+import { useApp } from "@/lib/AppStore";
 
 const Branches = () => {
+  const { setModalState, setItemToEdit } = useApp((state) => state);
   const navigate = useNavigate();
   const branches = [
     {
@@ -27,7 +30,8 @@ const Branches = () => {
   const locations = ["Tamale", "Accra"];
 
   const onEditClick = (branch) => {
-    console.log(branch);
+    setItemToEdit(branch);
+    setModalState("open");
   };
   const onDeleteClick = (branchId) => {
     console.log(branchId);
@@ -35,6 +39,7 @@ const Branches = () => {
 
   return (
     <>
+      <EditModal page={"Branch"} />
       <div className="flex items-center justify-between">
         <h3 className="page_header">Branch Management</h3>
         <CustomButton
