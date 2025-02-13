@@ -47,7 +47,7 @@ const Branches = () => {
 
       {branches &&
         (branches.length > 0 ? (
-          <div className="w-screen sm:w-full overflow-auto">
+          <div className="w-[395px] sm:w-full overflow-auto">
             <BranchTable
               branches={branches}
               dates={dates}

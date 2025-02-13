@@ -43,7 +43,7 @@ const Users = () => {
 
       {users &&
         (users?.length > 0 ? (
-          <div className="w-screen sm:w-full overflow-auto">
+          <div className="w-[395px] sm:w-full overflow-auto">
             <UsersTable
               users={users}
               onEditClick={onEditClick}

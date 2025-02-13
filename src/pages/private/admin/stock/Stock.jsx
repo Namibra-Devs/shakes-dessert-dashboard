@@ -86,7 +86,7 @@ const Stock = () => {
                 </li>
               ))}
             </ul>
-            <div className="w-screen sm:w-full overflow-auto">
+            <div className="w-[395px] sm:w-full overflow-auto">
               <StockTable
                 stocks={stocks}
                 onEditClick={onEditClick}

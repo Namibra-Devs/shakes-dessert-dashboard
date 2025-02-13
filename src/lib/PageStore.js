@@ -36,6 +36,7 @@ export const useStockStore = create((set) => ({
     price: "",
     branch: "",
     availability: "",
+    image: null,
   },
 
   updateField: (value, field) => {
@@ -43,6 +44,15 @@ export const useStockStore = create((set) => ({
       stock: {
         ...state.stock,
         [field]: value.toLowerCase() === "clear" ? "" : value,
+      },
+    }));
+  },
+
+  setStockImage: (file) => {
+    set((state) => ({
+      stock: {
+        ...state.stock,
+        image: file,
       },
     }));
   },
@@ -57,6 +67,7 @@ export const useStockStore = create((set) => ({
         price: "",
         branch: "",
         availability: "",
+        image: null,
       },
     }));
   },

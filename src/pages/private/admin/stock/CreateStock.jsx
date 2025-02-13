@@ -5,16 +5,99 @@ import { useApp } from "@/lib/AppStore";
 import { useStockStore } from "@/lib/PageStore";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
+import UploadIcon from "@/assets/images/image-upload.png";
+import PropTypes from "prop-types";
+import { useState } from "react";
+
+const ImageUpload = ({ setFile }) => {
+  const [preview, setPreview] = useState(null);
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      setPreview(URL.createObjectURL(selectedFile));
+      setFile(selectedFile); // Set the actual file
+    } else {
+      setPreview(null);
+      setFile(null);
+    }
+  };
+
+  return (
+    <div>
+      <label
+        htmlFor="file-upload"
+        className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-primary_red text-dark rounded-lg cursor-pointer border-[#FDCFF2] bg-[#FEEFFB80]"
+      >
+        <img src={UploadIcon} alt="" width={40} />
+        <p className="mt-2 text-xl font-[200] text-dark">
+          Click to upload a file
+        </p>
+      </label>
+      <input
+        id="file-upload"
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+      {preview && (
+        <div className="w-full flex items-center flex-col mt-6">
+          <CustomButton
+            label="remove file"
+            variant="contained"
+            onClick={() => {
+              setPreview(null);
+              setFile(null);
+            }}
+          />
+          <img
+            src={preview}
+            alt="File Preview"
+            className="w-1/2 sm:w-2/5 lg:w-3/4 h-auto mt-2"
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
+ImageUpload.propTypes = {
+  setFile: PropTypes.func.isRequired,
+};
 
 const CreateStock = () => {
-  const { stock, updateField, clearStock } = useStockStore((state) => state);
+  const { stock, updateField, setStockImage, clearStock } = useStockStore(
+    (state) => state
+  );
   const { setAlert } = useApp((state) => state);
 
-  const handleAddBranch = async (e) => {
+  const handleAddStock = async (e) => {
     e.preventDefault();
-    console.log({ stock });
-    setAlert({ message: "test", type: "success" });
+
+    for (let stockValue of Object.values(stock)) {
+      if (!stockValue) {
+        setAlert({ message: "All fields are required", type: "warning" });
+        return;
+      }
+    }
+
+    try {
+      console.log({ stock });
+      setAlert({
+        message: "Stock Created",
+        type: "success",
+      });
+    } catch {
+      setAlert({
+        message:
+          "There was an error while trying to create stock item. Please try again.",
+        type: "error",
+      });
+    }
   };
+
   return (
     <>
       <div className="flex items-center space-x-5">
@@ -33,7 +116,7 @@ const CreateStock = () => {
       </div>
 
       <form
-        onSubmit={handleAddBranch}
+        onSubmit={handleAddStock}
         className="mt-5 w-full sm:w-[70%] lg:w-1/2"
       >
         <Input
@@ -47,14 +130,14 @@ const CreateStock = () => {
 
         <Dropdown
           label={"Category"}
-          options={["hello", "bye", "Clear"]}
+          options={["Todays Special", "Top Choice", "Clear"]}
           item={stock?.category}
           setItem={(selectedItem) => updateField(selectedItem, "category")}
         />
 
         <Dropdown
           label={"Food Type"}
-          options={["hello", "bye", "Clear"]}
+          options={["Snack", "Drink", "Clear"]}
           item={stock?.foodType}
           setItem={(selectedItem) => updateField(selectedItem, "foodType")}
         />
@@ -99,7 +182,7 @@ const CreateStock = () => {
 
         <Dropdown
           label={"Branch"}
-          options={["Branch A", "Branch B", "Clear"]}
+          options={["Accra", "Tamale", "Kumasi", "Clear"]}
           item={stock?.branch}
           setItem={(selectedItem) => updateField(selectedItem, "branch")}
         />
@@ -111,7 +194,19 @@ const CreateStock = () => {
           setItem={(selectedItem) => updateField(selectedItem, "availability")}
         />
 
-        <div className="flex items-center space-x-5 mb-5">
+        <div>
+          <label
+            className="block font-[300] text-[16px] sm:text-[18px] mt-5"
+            htmlFor={"description"}
+          >
+            Stock Image
+          </label>
+          <ImageUpload
+            setFile={(selectedItem) => setStockImage(selectedItem)}
+          />
+        </div>
+
+        <div className="flex items-center space-x-5 my-5">
           <CustomButton
             label="cancel"
             variant="outlined"
