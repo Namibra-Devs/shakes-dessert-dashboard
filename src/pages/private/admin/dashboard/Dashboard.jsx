@@ -4,6 +4,7 @@ import { Users, Salad, Building2 } from "lucide-react";
 import { Utensils } from "lucide-react";
 import { Pizza } from "lucide-react";
 import { CupSoda } from "lucide-react";
+import BarChart from "./DashboardChart";
 
 const Dashboard = () => {
   const info_details = [
@@ -70,8 +71,29 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-5 mt-10">
-        <div className="flex-[3] shadow-md rounded-[1rem] p-3">Graph</div>
+      <div className="flex flex-col-reverse lg:flex-row gap-5 mt-10">
+        <div className="w-[395px] sm:flex-[3] shadow-md rounded-[1rem] p-3 mb-5 lg:mb-0">
+          <div className="flex flex-col items-start m-3">
+            <p className="text-base text-gray-600 text-center">
+              Food Types added monthly
+            </p>
+
+            <div className="flex items-center space-x-5">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-[#386CAA] rounded-full"></div>
+                <p className="text-base text-gray-600 text-center">Snacks</p>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-[#4A90E2] rounded-full"></div>
+                <p className="text-base text-gray-600 text-center">Drinks</p>
+              </div>
+            </div>
+          </div>
+          <div className="overflow-auto w-full">
+            <BarChart />
+          </div>
+        </div>
+
         <div className="flex-[1] grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-3">
           {info_details.slice(4).map((info) => (
             <InfoCard key={info.tag} info={info} />
