@@ -2,13 +2,11 @@ import { useApp } from "@/lib/AppStore";
 import CustomButton from "@/components/CustomButton";
 import Dropdown from "@/components/Dropdown";
 import Input from "@/components/Input";
-// import { useStockStore } from "@/lib/PageStore";
 import { useState } from "react";
 import { useEffect } from "react";
 
 const EditStockForm = () => {
   const { itemToEdit } = useApp((state) => state);
-  // const { updateField } = useStockStore((state) => state);
   const [formData, setFormData] = useState({
     itemName: "",
     description: "",

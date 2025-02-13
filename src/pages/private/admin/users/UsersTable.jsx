@@ -72,11 +72,7 @@ const generateColumns = ({ onEditClick, onDeleteClick }) => {
     {
       accessorKey: "email",
       header: "Email",
-      cell: ({ row }) => (
-        <div className="capitalize">
-          {row.getValue("email") || "unavailable"}
-        </div>
-      ),
+      cell: ({ row }) => <div>{row.getValue("email") || "unavailable"}</div>,
     },
     {
       accessorKey: "branch",
