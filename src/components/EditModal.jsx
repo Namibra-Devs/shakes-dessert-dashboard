@@ -17,7 +17,7 @@ const EditModal = ({ page }) => {
         modalState === "open" ? "fixed" : "hidden"
       } inset-0 z-30 flex items-center justify-end bg-black bg-opacity-50 sm:pr-2`}
     >
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl h-screen flex flex-col  relative">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl h-screen flex flex-col relative">
         {/* Header */}
         <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
           <h4 className="text-base text-gray-500">Edit {page} Item</h4>
@@ -29,7 +29,7 @@ const EditModal = ({ page }) => {
           </button>
         </div>
 
-        <div className="p-5">
+        <div className="p-5 h-[80vh] overflow-auto">
           {allowedPages.includes(page) &&
             (page === "Stock" ? (
               <EditStockForm />
@@ -41,7 +41,7 @@ const EditModal = ({ page }) => {
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-200 absolute bottom-0 left-0 w-full">
+        <div className="px-6 py-4 border-t bg-white border-gray-200 absolute bottom-0 left-0 w-full">
           <CustomButton
             label="Back"
             variant="contained"

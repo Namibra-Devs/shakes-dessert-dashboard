@@ -20,6 +20,8 @@ const Stock = () => {
       foodType: "snack",
       price: 30,
       branch: "Accra",
+      availability: "In Stock",
+      description: "This is a Pizza",
     },
     {
       _id: "9340912864",
@@ -29,6 +31,8 @@ const Stock = () => {
       foodType: "snack",
       price: 50,
       branch: "Tamale",
+      availability: "Out Of Stock",
+      description: "This is a Cake",
     },
   ];
   const totalCount = 30;
