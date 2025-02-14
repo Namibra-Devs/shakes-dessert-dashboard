@@ -3,4 +3,4 @@
 ## URLs
 
 - [PRODUCTION](https://platform.shakesanddessert.com/)
-- [DEV](https://dev-platform.shakesanddessert.com)
+- [DEV](http://dev.portal.shakesanddessert.com/)
