@@ -72,7 +72,7 @@ const Dashboard = () => {
       </div>
 
       <div className="flex flex-col-reverse lg:flex-row gap-5 mt-10">
-        <div className="w-[395px] sm:flex-[3] shadow-md rounded-[1rem] p-3 mb-5 lg:mb-0">
+        <div className="w-[395px] sm:w-full sm:flex-[3] shadow-md rounded-[1rem] p-3 mb-5 lg:mb-0">
           <div className="flex flex-col items-start m-3">
             <p className="text-base text-gray-600 text-center">
               Food Types added monthly

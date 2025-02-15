@@ -6,7 +6,8 @@ body {
   background: #f7f7f7;
 }
 
-.main_container::-webkit-scrollbar {
+.main_container::-webkit-scrollbar,
+.orders_container::-webkit-scrollbar {
   display: none;
 }
 

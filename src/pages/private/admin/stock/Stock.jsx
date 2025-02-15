@@ -73,7 +73,7 @@ const Stock = () => {
       {stocks &&
         (stocks.length > 0 ? (
           <>
-            <ul className="flex flex-wrap items-center gap-1 mt-5 bg-gray-200 w-fit p-1 rounded-md">
+            <ul className="flex flex-wrap items-center gap-1 mt-5 bg-gray-200 w-fit p-1 rounded-[10px]">
               {tabItems.map((item, index) => (
                 <li
                   key={index}
@@ -84,7 +84,7 @@ const Stock = () => {
                   }
                   className={`${
                     activeTab === item.tabName ? "bg-white" : "bg-transparent"
-                  } w-fit p-2 rounded-sm text-[13px] flex items-center space-x-2 cursor-pointer`}
+                  } w-fit p-2 rounded-[10px] text-[13px] flex items-center space-x-2 cursor-pointer`}
                 >
                   <span className="capitalize">{item.tabName}</span>
                   <small
