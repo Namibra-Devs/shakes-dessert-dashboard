@@ -28,6 +28,45 @@ export const useBranchStore = create((set) => ({
 }));
 
 export const useStockStore = create((set) => ({
+  stocks: [
+    {
+      _id: "2860492856",
+      itemName: "Pizza",
+      createdBy: "Admin",
+      category: "most popular",
+      foodType: "snack",
+      price: 30,
+      branch: "Accra",
+      availability: "In Stock",
+      description: "This is a Pizza",
+      createdAt: "2025-02-16T10:00:00Z",
+    },
+    {
+      _id: "9340912864",
+      itemName: "Cake",
+      createdBy: "Jawad",
+      category: "Trending",
+      foodType: "snack",
+      price: 50,
+      branch: "Tamale",
+      availability: "Out Of Stock",
+      description: "This is a Cake",
+      createdAt: "2025-02-15T14:30:00Z",
+    },
+    {
+      _id: "9340911297",
+      itemName: "Gogo Apple",
+      createdBy: "Kaisen",
+      category: "Top Choice",
+      foodType: "drink",
+      price: 15,
+      branch: "Tamale",
+      availability: "In Stock",
+      description: "This is a Gogo Apple drink",
+      createdAt: "2025-02-14T09:15:00Z",
+    },
+  ],
+
   stock: {
     itemName: "",
     category: "",

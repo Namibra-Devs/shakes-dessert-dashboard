@@ -6,35 +6,16 @@ import { useState } from "react";
 import { StockTable } from "./StockTable";
 import EditModal from "@/components/EditModal";
 import { useApp } from "@/lib/AppStore";
+import StockDetailsModal from "./StockDetailsModal";
+import { useStockStore } from "@/lib/PageStore";
 
 const Stock = () => {
   const [activeTab, setActiveTab] = useState("All");
+  const [stockItem, setStockItem] = useState(null);
+  const [viewModalState, setViewModalState] = useState("closed");
   const { setModalState, setItemToEdit } = useApp((state) => state);
   const navigate = useNavigate();
-  const stocks = [
-    {
-      _id: "2860492856",
-      itemName: "Pizza",
-      createdBy: "Admin",
-      category: "most popular",
-      foodType: "snack",
-      price: 30,
-      branch: "Accra",
-      availability: "In Stock",
-      description: "This is a Pizza",
-    },
-    {
-      _id: "9340912864",
-      itemName: "Cake",
-      createdBy: "Jawad",
-      category: "Trending",
-      foodType: "snack",
-      price: 50,
-      branch: "Tamale",
-      availability: "Out Of Stock",
-      description: "This is a Cake",
-    },
-  ];
+  const { stocks } = useStockStore((state) => state);
   const totalCount = 30;
 
   const tabItems = [
@@ -49,16 +30,27 @@ const Stock = () => {
     },
   ];
 
+  const onViewClick = (stock) => {
+    setStockItem(stock);
+    setViewModalState("open");
+  };
+
   const onEditClick = (stock) => {
     setItemToEdit(stock);
     setModalState("open");
   };
+
   const onDeleteClick = (stockId) => {
     console.log(stockId);
   };
 
   return (
     <>
+      <StockDetailsModal
+        stockItem={stockItem}
+        viewModalState={viewModalState}
+        setViewModalState={setViewModalState}
+      />
       <EditModal page={"Stock"} />
       <div className="flex items-center justify-between">
         <h3 className="page_header">Stock Management</h3>
@@ -98,6 +90,7 @@ const Stock = () => {
             <div className="w-[395px] sm:w-full overflow-auto">
               <StockTable
                 stocks={stocks}
+                onViewClick={onViewClick}
                 onEditClick={onEditClick}
                 onDeleteClick={onDeleteClick}
               />

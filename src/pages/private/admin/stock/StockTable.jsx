@@ -36,7 +36,7 @@ import PropTypes from "prop-types";
 // import useAuth from "@/hooks/useAuth";
 // import { deleteSelectedItems } from "@/lib/utils/deleteSelectedItems";
 
-const generateColumns = ({ onEditClick, onDeleteClick }) => {
+const generateColumns = ({ onViewClick, onEditClick, onDeleteClick }) => {
   return [
     {
       id: "select",
@@ -64,9 +64,9 @@ const generateColumns = ({ onEditClick, onDeleteClick }) => {
       accessorKey: "itemName",
       header: "Item Name",
       cell: ({ row }) => (
-        <div className="capitalize">
+        <p className="capitalize">
           {row.getValue("itemName") || "unavailable"}
-        </div>
+        </p>
       ),
     },
     {
@@ -96,12 +96,16 @@ const generateColumns = ({ onEditClick, onDeleteClick }) => {
     {
       accessorKey: "category",
       header: "Category",
-      cell: ({ row }) => <p>{row.getValue("category")}</p>,
+      cell: ({ row }) => (
+        <p className="capitalize">{row.getValue("category")}</p>
+      ),
     },
     {
       accessorKey: "foodType",
       header: "Food Type",
-      cell: ({ row }) => <p>{row.getValue("foodType")}</p>,
+      cell: ({ row }) => (
+        <p className="capitalize">{row.getValue("foodType")}</p>
+      ),
     },
     {
       accessorKey: "price",
@@ -113,7 +117,7 @@ const generateColumns = ({ onEditClick, onDeleteClick }) => {
       header: "Branch",
       cell: ({ row }) => {
         const branch = row.getValue("branch");
-        return <p>{branch}</p>;
+        return <p className="capitalize">{branch}</p>;
       },
       filterFn: (row, columnId, filterValue) => {
         const branch = row.getValue(columnId);
@@ -137,6 +141,9 @@ const generateColumns = ({ onEditClick, onDeleteClick }) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => onViewClick(stock)}>
+                View Stock
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => onEditClick(stock)}>
                 Edit Stock
               </DropdownMenuItem>
@@ -153,6 +160,7 @@ const generateColumns = ({ onEditClick, onDeleteClick }) => {
 };
 
 export function StockTable({
+  onViewClick,
   onEditClick,
   onDeleteClick,
   stocks,
@@ -170,7 +178,7 @@ export function StockTable({
   //     auth: { accessToken },
   //   } = useAuth();
 
-  const columns = generateColumns({ onEditClick, onDeleteClick });
+  const columns = generateColumns({ onViewClick, onEditClick, onDeleteClick });
 
   const table = useReactTable({
     data: stocks,
@@ -478,6 +486,7 @@ export function StockTable({
 }
 
 StockTable.propTypes = {
+  onViewClick: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
   stocks: PropTypes.array.isRequired,
