@@ -25,33 +25,58 @@ const Sidebar = () => {
     closeSidebar,
   } = useApp();
 
-  const navigation_links = [
-    {
-      name: "Dashboard",
-      icon: <LayoutDashboard size={20} />,
-      path: "/dashboard",
-    },
-    {
-      name: "Orders",
-      icon: <ShoppingCart size={20} />,
-      path: "/dashboard/orders",
-    },
-    {
-      name: "Branch Management",
-      icon: <Building2 size={20} />,
-      path: "/dashboard/manage/branches",
-    },
-    {
-      name: "User Management",
-      icon: <Users size={20} />,
-      path: "/dashboard/manage/users",
-    },
-    {
-      name: "Stock Management",
-      icon: <Store size={20} />,
-      path: "/dashboard/manage/stock",
-    },
-  ];
+  const route_tab_mapping = {
+    admin: [
+      {
+        name: "Dashboard",
+        icon: <LayoutDashboard size={20} />,
+        path: "/dashboard",
+      },
+      {
+        name: "Orders",
+        icon: <ShoppingCart size={20} />,
+        path: "/dashboard/orders",
+      },
+      {
+        name: "Branch Management",
+        icon: <Building2 size={20} />,
+        path: "/dashboard/manage/branches",
+      },
+      {
+        name: "User Management",
+        icon: <Users size={20} />,
+        path: "/dashboard/manage/users",
+      },
+      {
+        name: "Stock Management",
+        icon: <Store size={20} />,
+        path: "/dashboard/manage/stock",
+      },
+    ],
+
+    sales: [
+      {
+        name: "Orders",
+        icon: <ShoppingCart size={20} />,
+        path: "/dashboard/orders",
+      },
+      {
+        name: "Stock Management",
+        icon: <Store size={20} />,
+        path: "/dashboard/manage/stock",
+      },
+    ],
+
+    kitchen: [
+      {
+        name: "Orders",
+        icon: <ShoppingCart size={20} />,
+        path: "/dashboard/orders",
+      },
+    ],
+  };
+
+  const navigation_links = route_tab_mapping[user?.role] || [];
 
   return (
     <div

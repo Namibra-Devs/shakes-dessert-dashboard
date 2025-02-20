@@ -8,7 +8,7 @@ import LoadingPage from "./components/LoadingPage";
 const Login = lazy(() => import("./pages/public/Login"));
 const ErrorPage = lazy(() => import("./pages/public/ErrorPage"));
 const RequireAuth = lazy(() => import("./components/RequireAuth"));
-// const RoleProtected = lazy(() => import("./components/RoleProtected"));
+const RoleProtected = lazy(() => import("./components/RoleProtected"));
 
 // public pages
 const Unauthorized = lazy(() => import("./pages/public/Unauthorized"));
@@ -68,7 +68,9 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <Dashboard />
+            <RoleProtected allowedRoles={["admin"]}>
+              <Dashboard />
+            </RoleProtected>
           </Suspense>
         ),
       },
@@ -76,7 +78,9 @@ const router = createBrowserRouter([
         path: "orders",
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <Orders />
+            <RoleProtected allowedRoles={["admin", "sales", "kitchen"]}>
+              <Orders />
+            </RoleProtected>
           </Suspense>
         ),
       },
@@ -84,7 +88,9 @@ const router = createBrowserRouter([
         path: "manage/orders/create",
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <CreateOrder />
+            <RoleProtected allowedRoles={["admin", "sales", "kitchen"]}>
+              <CreateOrder />
+            </RoleProtected>
           </Suspense>
         ),
       },
@@ -92,7 +98,9 @@ const router = createBrowserRouter([
         path: "manage/branches",
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <Branches />
+            <RoleProtected allowedRoles={["admin"]}>
+              <Branches />
+            </RoleProtected>
           </Suspense>
         ),
       },
@@ -100,7 +108,9 @@ const router = createBrowserRouter([
         path: "manage/branches/create",
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <CreateBranch />
+            <RoleProtected allowedRoles={["admin"]}>
+              <CreateBranch />
+            </RoleProtected>
           </Suspense>
         ),
       },
@@ -108,7 +118,9 @@ const router = createBrowserRouter([
         path: "manage/users",
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <Users />
+            <RoleProtected allowedRoles={["admin"]}>
+              <Users />
+            </RoleProtected>
           </Suspense>
         ),
       },
@@ -116,7 +128,9 @@ const router = createBrowserRouter([
         path: "manage/users/create",
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <CreateUser />
+            <RoleProtected allowedRoles={["admin"]}>
+              <CreateUser />
+            </RoleProtected>
           </Suspense>
         ),
       },
@@ -124,7 +138,9 @@ const router = createBrowserRouter([
         path: "manage/stock",
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <Stock />
+            <RoleProtected allowedRoles={["admin", "sales"]}>
+              <Stock />
+            </RoleProtected>
           </Suspense>
         ),
       },
@@ -132,7 +148,9 @@ const router = createBrowserRouter([
         path: "manage/stock/create",
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <CreateStock />
+            <RoleProtected allowedRoles={["admin", "sales"]}>
+              <CreateStock />
+            </RoleProtected>
           </Suspense>
         ),
       },

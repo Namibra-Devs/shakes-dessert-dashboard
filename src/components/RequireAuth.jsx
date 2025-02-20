@@ -10,7 +10,7 @@ const RequireAuth = () => {
   } = useApp((state) => state);
   const location = useLocation();
 
-  return user ? (
+  return user?.role ? (
     <div className="flex">
       <Sidebar />
       <main className="main_container flex-[4] bg-white py-5 px-2 sm:px-5 h-fit sm:h-screen sm:overflow-y-scroll">
@@ -19,7 +19,7 @@ const RequireAuth = () => {
       </main>
     </div>
   ) : (
-    <Navigate to="/" state={{ from: location.pathname }} replace />
+    <Navigate to="/" state={{ from: location }} replace />
   );
 };
 export default RequireAuth;

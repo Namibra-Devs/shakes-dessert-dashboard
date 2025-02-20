@@ -21,7 +21,6 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // await new Promise((resolve) => setTimeout(resolve, 2000));
       const user = {
         _id: "e9e9e9e",
         email: "john@email.com",
@@ -34,7 +33,7 @@ const Login = () => {
       if (user?.role === "admin") {
         navigate(from, { replace: true });
       } else {
-        const from_path = from || "/dashboard/orders";
+        const from_path = "/dashboard/orders";
         navigate(from_path, { replace: true });
       }
     } catch (error) {
