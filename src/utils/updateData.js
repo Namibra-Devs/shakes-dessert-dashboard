@@ -3,40 +3,36 @@ import { isTokenValid } from "./validateToken";
 
 export const updateData = async (page, itemId, data, accessToken) => {
   const result = {
-    message: {},
+    message: "",
     data: null,
+    success: false,
   };
 
   const endpoints = {
-    staff: "/api/staffs",
-    branch: "/api/branches",
-    service: "/api/services",
-    customer: "/api/customers/update",
-    item: "/api/service/items/update",
-    order: "/api/orders",
+    stock: "/api/...",
+    user: "/api/users/...",
+    branch: "/api/branches/...",
+    order: "/api/orders/...",
   };
 
   const endpoint = endpoints[page];
 
   if (!page || !itemId || !data || !accessToken) {
-    result.message = { type: "error", text: "Missing function parameters" };
-    result.loading = false;
+    result.message = "Missing function parameters";
     return result;
   }
 
   if (!endpoint) {
-    result.message = { type: "error", text: `Invalid page: ${page}` };
-    result.loading = false;
+    result.message = `Invalid page: ${page}`;
     return result;
   }
 
+  // Validate token
   if (!isTokenValid(accessToken)) {
-    console.log("Token is invalid or expired. Please log in again.");
-    window.location.href = "/";
-    result.message = {
-      type: "error",
-      text: "Token expired. Redirecting to login...",
-    };
+    console.warn("Token is invalid or expired. Redirecting to login...");
+    result.message = "Token expired. Redirecting to login...";
+    // replace with logout function later
+    setTimeout(() => (window.location.href = "/"), 1500);
     return result;
   }
 
@@ -48,36 +44,21 @@ export const updateData = async (page, itemId, data, accessToken) => {
     });
 
     result.data = response?.data;
-    result.message = {
-      type: "success",
-      text: response?.data?.message || `${page} updated successfully`,
-    };
+    result.success = true;
+    result.message = response?.data?.message || `${page} updated successfully`;
   } catch (error) {
     if (!error?.response) {
-      result.message = {
-        type: "error",
-        text: "No server response. Please check your connection.",
-      };
+      result.message = "No server response. Check your internet connection.";
     } else if (error.response.status === 400) {
-      result.message = {
-        type: "error",
-        text: "Invalid input. Please check the data and try again.",
-      };
+      result.message = "Invalid input. Please check your data and try again.";
     } else if (error.response.status === 401) {
-      result.message = {
-        type: "error",
-        text: "Unauthorized access. Please log in again.",
-      };
+      result.message = "Session expired. Please log in again.";
     } else if (error.response.status === 404) {
-      result.message = {
-        type: "error",
-        text: "Item not found. Please check the item ID and try again.",
-      };
+      result.message = "Requested item not found. Please verify and try again.";
     } else {
-      result.message = {
-        type: "error",
-        text: error.response?.data?.message || "An unexpected error occurred.",
-      };
+      result.message =
+        error.response?.data?.message ||
+        "Something went wrong. Please try again.";
       console.error("Error:", error);
     }
   }

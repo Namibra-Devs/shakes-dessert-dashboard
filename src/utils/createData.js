@@ -42,6 +42,7 @@ export const createData = async (page, data, accessToken) => {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     result.data = response.data;
+    result.success = true;
     result.message = response?.data?.message || `${page} created successfully`;
   } catch (error) {
     const status = error?.response?.status;
