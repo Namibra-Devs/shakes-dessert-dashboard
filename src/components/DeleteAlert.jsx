@@ -14,30 +14,31 @@ const DeleteAlert = ({ page, setDeleteModal, deleteModal, itemId }) => {
   const deleteItem = async () => {
     setLoading(true);
     try {
-      // console.log("Delete item with ID:", itemId);
-      const { data, message } = await handleDelete(accessToken, page, itemId);
-      if (message && !data) {
-        setAlert((prev) => ({ ...prev, message, type: "error" }));
+      const { data, message, success } = await handleDelete(
+        accessToken,
+        page,
+        itemId
+      );
+
+      if (!success) {
+        setAlert({ message, type: "error" });
+        return;
       }
-      if (data) {
-        setAlert((prev) => ({
-          ...prev,
-          message: `${page} deleted successfully`,
-          type: "success",
-        }));
-        setDeleteModal(false);
-        if (page === "branch") {
-          triggerUpdate("branch");
-          triggerUpdate("stock");
-          triggerUpdate("user");
-          triggerUpdate("order");
-        } else {
-          triggerUpdate(page);
-        }
-      }
+
+      console.log(data);
+      setAlert({ message: `${page} deleted successfully`, type: "success" });
+      setDeleteModal(false);
+
+      // Update related data after deletion
+      const resourcesToUpdate =
+        page === "branch" ? ["branch", "stock", "user", "order"] : [page];
+      resourcesToUpdate.forEach((resource) => triggerUpdate(resource));
     } catch (error) {
       console.error("Error during deletion:", error.message || error);
-      setAlert({ message: "Couldn't delete item", type: "error" });
+      setAlert({
+        message: error.message || "Couldn't delete item. Try again.",
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
