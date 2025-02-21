@@ -58,7 +58,7 @@ const Stock = () => {
       />
       <EditModal page={"Stock"} />
       <DeleteAlert
-        page={"Stock"}
+        page={"stock"}
         setDeleteModal={setDeleteModal}
         deleteModal={deleteModal}
         itemId={stockId}

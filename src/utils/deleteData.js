@@ -10,7 +10,7 @@ export const handleDelete = async (accessToken, page, itemId) => {
 
   const endpoints = {
     stock: "/api/...",
-    user: "/api/users/...",
+    staff: "/api/staff/...",
     branch: "/api/branches/...",
     order: "/api/orders/...",
   };

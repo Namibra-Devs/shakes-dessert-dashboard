@@ -7,13 +7,17 @@ import useAppContext from "@/hooks/useAppContext";
 import { useApp } from "@/lib/AppStore";
 
 const DeleteAlert = ({ page, setDeleteModal, deleteModal, itemId }) => {
-  const { accessToken, setAlert } = useApp();
+  const {
+    auth: { accessToken },
+    setAlert,
+  } = useApp();
   const { triggerUpdate } = useAppContext();
   const [loading, setLoading] = useState(false);
 
   const deleteItem = async () => {
     setLoading(true);
     try {
+      console.log({ accessToken, page, itemId });
       const { data, message, success } = await handleDelete(
         accessToken,
         page,

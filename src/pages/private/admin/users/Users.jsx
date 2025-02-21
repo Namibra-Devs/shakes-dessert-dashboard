@@ -5,9 +5,14 @@ import EmptyImage from "@/assets/images/empty.png";
 import { UsersTable } from "./UsersTable";
 import { useApp } from "@/lib/AppStore";
 import EditModal from "@/components/EditModal";
+import DeleteAlert from "@/components/DeleteAlert";
+import { useState } from "react";
 
 const Users = () => {
-  const { setModalState, setItemToEdit } = useApp((state) => state);
+  const { setModalState, setItemToEdit, setDeleteModal, deleteModal } = useApp(
+    (state) => state
+  );
+  const [staffId, setStaffId] = useState(null);
   const navigate = useNavigate();
   const users = [
     {
@@ -31,11 +36,18 @@ const Users = () => {
     setModalState("open");
   };
   const onDeleteClick = (staffId) => {
-    console.log(staffId);
+    setStaffId(staffId);
+    setDeleteModal(true);
   };
   return (
     <>
       <EditModal page={"User"} />
+      <DeleteAlert
+        page={"staff"}
+        setDeleteModal={setDeleteModal}
+        deleteModal={deleteModal}
+        itemId={staffId}
+      />
       <div className="flex items-center justify-between">
         <h3 className="page_header">User Management</h3>
         <CustomButton
