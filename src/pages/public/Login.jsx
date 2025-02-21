@@ -3,6 +3,7 @@ import Logo from "../../assets/images/logo.png";
 import { LucideEyeClosed, LucideEye } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useApp } from "../../lib/AppStore";
+import { AuthenticateUser } from "@/utils/auth";
 
 const Login = () => {
   const [inputState, setInputState] = useState("password");
@@ -14,30 +15,44 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from || "/dashboard";
 
-  const { setAuth } = useApp((state) => state);
+  const { setAuth, setAlert } = useApp((state) => state);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const user = {
-        _id: "e9e9e9e",
-        email: "john@email.com",
-        username: "John Doe",
-        role: "admin",
-      };
-      const accessToken = "08571-hello-world-80393";
+      const { data, message } = await AuthenticateUser(email, password);
+      const user = data?.user;
+      const accessToken = data?.accessToken;
+
+      if (!data) {
+        setAlert({
+          message: message || "An error occurred",
+          type: "error",
+        });
+        return;
+      }
+
+      setAlert({
+        message: message || "Login Successful",
+        type: "success",
+      });
+
       setAuth({ accessToken, user });
 
       if (user?.role === "admin") {
         navigate(from, { replace: true });
       } else {
-        const from_path = "/dashboard/orders";
-        navigate(from_path, { replace: true });
+        navigate("/dashboard/orders", { replace: true });
       }
     } catch (error) {
       console.log(error);
+      setAlert((prev) => ({
+        ...prev,
+        message: "An unexpected error occurred. Please try again.",
+        type: "error",
+      }));
     } finally {
       setLoading(false);
     }
