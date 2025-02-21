@@ -5,11 +5,16 @@ import { BranchTable } from "./BranchTable";
 import EmptyImage from "@/assets/images/empty.png";
 import EditModal from "@/components/EditModal";
 import { useApp } from "@/lib/AppStore";
+import { useState } from "react";
+import DeleteAlert from "@/components/DeleteAlert";
 // import useAppContext from "@/hooks/useAppContext";
 
 const Branches = () => {
-  const { setModalState, setItemToEdit } = useApp((state) => state);
+  const { setModalState, setItemToEdit, setDeleteModal, deleteModal } = useApp(
+    (state) => state
+  );
   const navigate = useNavigate();
+  const [branchId, setBranchId] = useState(null);
   // const { branches } = useAppContext();
   const branches = [
     {
@@ -36,12 +41,19 @@ const Branches = () => {
     setModalState("open");
   };
   const onDeleteClick = (branchId) => {
-    console.log(branchId);
+    setBranchId(branchId);
+    setDeleteModal(true);
   };
 
   return (
     <>
       <EditModal page={"Branch"} />
+      <DeleteAlert
+        page={"branch"}
+        setDeleteModal={setDeleteModal}
+        deleteModal={deleteModal}
+        itemId={branchId}
+      />
       <div className="flex items-center justify-between">
         <h3 className="page_header">Branch Management</h3>
         <CustomButton
