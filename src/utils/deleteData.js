@@ -2,35 +2,38 @@ import axios from "@/api/axios";
 import { isTokenValid } from "./validateToken";
 
 export const handleDelete = async (accessToken, page, itemId) => {
-  let responseData = null;
-  let message = "";
+  const result = {
+    data: null,
+    message: "",
+    success: false,
+  };
 
   const endpoints = {
-    branch: "/api/branches",
-    staff: "/api/staffs",
-    service: "/api/services/delete",
-    customer: "/api/customers/delete",
-    item: "/api/service/items/delete",
-    order: "/api/orders",
+    stock: "/api/...",
+    user: "/api/users/...",
+    branch: "/api/branches/...",
+    order: "/api/orders/...",
   };
 
   const endpoint = endpoints[page];
 
   if (!page || !accessToken || !itemId) {
-    return { data: responseData, message: "Missing required parameter(s)." };
+    result.message = "Missing required parameter(s).";
+    return result;
   }
 
   if (!endpoint) {
-    return { data: responseData, message: `Invalid page: ${page}` };
+    result.message = `Invalid page: ${page}`;
+    return result;
   }
 
+  // Validate token
   if (!isTokenValid(accessToken)) {
-    message = "Token expired. Redirecting to login...";
-    console.error(message);
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 2000);
-    return { data: responseData, message };
+    console.warn("Token is invalid or expired. Redirecting to login...");
+    result.message = "Token expired. Redirecting to login...";
+    // replace with logout function later
+    setTimeout(() => (window.location.href = "/"), 1500);
+    return result;
   }
 
   try {
@@ -40,29 +43,25 @@ export const handleDelete = async (accessToken, page, itemId) => {
       },
     });
 
-    responseData = response?.data;
-    message = response?.data?.message || `${page} deleted successfully!`;
+    result.data = response.data;
+    result.success = true;
+    result.message = response?.data?.message || `${page} deleted successfully`;
   } catch (error) {
-    if (!error.response) {
-      message = "Network error or no response from the server.";
-    } else {
-      switch (error.response.status) {
-        case 400:
-          message = "Bad request. Missing or invalid parameters.";
-          break;
-        case 401:
-          message = "Unauthorized. Please log in again.";
-          break;
-        case 404:
-          message = `${page} not found.`;
-          break;
-        default:
-          message =
-            error.response?.data?.message || "An unexpected error occurred.";
-      }
-    }
     console.error("Error during deletion:", error);
+    const status = error?.response?.status;
+    if (!error?.response) {
+      result.message = "No server response. Check your connection.";
+    } else if (status === 400) {
+      result.message = "Invalid request. Please check the data.";
+    } else if (status === 401) {
+      result.message = "Authorization failed. Please log in again.";
+    } else if (status === 404) {
+      result.message = `${page} not found. It may have been deleted already.`;
+    } else {
+      result.message =
+        error.response?.data?.message || `Failed to delete ${page}. Try again.`;
+    }
   }
 
-  return { data: responseData, message };
+  return result;
 };
