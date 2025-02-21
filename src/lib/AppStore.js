@@ -29,4 +29,9 @@ export const useApp = create((set) => ({
   setItemToEdit: (item) => {
     set(() => ({ itemToEdit: item }));
   },
+
+  deleteModal: false,
+  setDeleteModal: (state) => {
+    set(() => ({ deleteModal: state }));
+  },
 }));

@@ -8,12 +8,16 @@ import EditModal from "@/components/EditModal";
 import { useApp } from "@/lib/AppStore";
 import StockDetailsModal from "./StockDetailsModal";
 import { useStockStore } from "@/lib/PageStore";
+import DeleteAlert from "@/components/DeleteAlert";
 
 const Stock = () => {
   const [activeTab, setActiveTab] = useState("All");
   const [stockItem, setStockItem] = useState(null);
+  const [stockId, setStockId] = useState(null);
   const [viewModalState, setViewModalState] = useState("closed");
-  const { setModalState, setItemToEdit } = useApp((state) => state);
+  const { setModalState, setItemToEdit, setDeleteModal, deleteModal } = useApp(
+    (state) => state
+  );
   const navigate = useNavigate();
   const { stocks } = useStockStore((state) => state);
   const totalCount = 30;
@@ -40,8 +44,9 @@ const Stock = () => {
     setModalState("open");
   };
 
-  const onDeleteClick = (stockId) => {
-    console.log(stockId);
+  const onDeleteClick = (Id) => {
+    setStockId(Id);
+    setDeleteModal(true);
   };
 
   return (
@@ -52,6 +57,12 @@ const Stock = () => {
         setViewModalState={setViewModalState}
       />
       <EditModal page={"Stock"} />
+      <DeleteAlert
+        page={"Stock"}
+        setDeleteModal={setDeleteModal}
+        deleteModal={deleteModal}
+        itemId={stockId}
+      />
       <div className="flex items-center justify-between">
         <h3 className="page_header">Stock Management</h3>
         <CustomButton
@@ -61,7 +72,6 @@ const Stock = () => {
           onClick={() => navigate("/dashboard/manage/stock/create")}
         />
       </div>
-
       {stocks &&
         (stocks.length > 0 ? (
           <>
