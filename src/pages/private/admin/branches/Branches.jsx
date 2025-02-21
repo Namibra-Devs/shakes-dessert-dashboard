@@ -5,10 +5,12 @@ import { BranchTable } from "./BranchTable";
 import EmptyImage from "@/assets/images/empty.png";
 import EditModal from "@/components/EditModal";
 import { useApp } from "@/lib/AppStore";
+// import useAppContext from "@/hooks/useAppContext";
 
 const Branches = () => {
   const { setModalState, setItemToEdit } = useApp((state) => state);
   const navigate = useNavigate();
+  // const { branches } = useAppContext();
   const branches = [
     {
       _id: "728ed52f",
